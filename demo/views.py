@@ -1,17 +1,17 @@
 from django.views.decorators.http import require_http_methods
 from django.views.generic import ListView, View
 from django.core.paginator import Paginator
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.db.models import Q
 from django.shortcuts import render
 
 from demo.models import Todo, Profile, Course, Module
-from demo.forms import TodoForm
+from demo.forms import TodoForm, ProfileForm
 
 def home(request):
     data = {
         'todos': Todo.objects.all(),
-        'profiles': Profile.objects.all(),
+        'profiles': Profile.objects.all()[:5],
         'courses': Course.objects.all()
     }
     
@@ -86,7 +86,7 @@ def search_profile(request):
     return render(
         template_name='partials/search.html',
         request=request,
-        context={'profiles': results}
+        context={'profiles': results[:10]}
     )
 
 @require_http_methods(['GET'])
@@ -143,3 +143,23 @@ class WorkerListView(View):
         paginator = Paginator(workers_list, self.paginate_by)
         pag_obj = paginator.get_page(page_number)
         return render(request, template_name, {'page_obj': pag_obj})
+
+@require_http_methods(['GET'])
+def edit_profile(request, id):
+    context = {}
+    profile = Profile.objects.get(id=id)
+    context['profile'] = profile
+    context['form'] = ProfileForm(instance=profile)
+    template_name = 'profiles/edit-item.html'
+    return render(request, template_name, context)
+
+@require_http_methods(['POST'])
+def update_profile(request, id):
+    context = {}
+    template_name = 'partials/item.html'
+    profile = Profile.objects.get(id=id)
+    form = ProfileForm(request.POST, instance=profile)
+    if form.is_valid():
+        form.save()
+    context['profile'] = Profile.objects.get(id=id)
+    return render(request, template_name, context)

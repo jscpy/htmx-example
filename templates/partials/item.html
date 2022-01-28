@@ -1,4 +1,12 @@
-<div class="card">
+<div class="card" hx-target="this" hx-swap="outerHTML">
+  <header class="card-header">
+    <p class="card-header-title"></p>
+    <button class="card-header-icon" hx-get="{% url 'demo:profile-edit' profile.id %}">
+      <span class="icon has-text-link">
+        <i class="fas fa-edit" aria-hidden="true"></i>
+      </span>
+    </button>
+  </header>
   <div class="card-content">
     <div class="media">
       <div class="media-content">

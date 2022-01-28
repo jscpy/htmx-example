@@ -7,6 +7,8 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('profiles/', views.ProfileListView.as_view(), name='profiles'),
     path('profiles/list/', views.ProfilesOnLoadView.as_view(), name='profiles-to-load'),
+    path('profiles/edit/<int:id>', views.edit_profile, name='profile-edit'),
+    path('profiles/update/<int:id>', views.update_profile, name='profile-update'),
     path('workers/', views.WorkerListView.as_view(), name='workers'),
 
     # HTMX

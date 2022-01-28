@@ -1,0 +1,19 @@
+<form class="box" hx-post="{% url 'demo:profile-update' profile.id %}" hx-target="this" hx-swap="outerHTML">
+<div class="content">
+    <p class="title is-5 is-spaced">{{profile.get_fullname}}</p>
+    <p class="subtitle is-6 has-text-primary-dark is-family-monospace">{{profile.job}} </p>
+    {% for field in form %}
+    <div class="field">
+        <label class="label">{{field.label_tag}}</label>
+        <div class="control">
+            {{field}}
+        </div>
+    </div>
+    {% endfor %}
+    <div class="field">
+        <div class="control">
+            <button class="button is-link">Guardar cambios</button>
+        </div>
+    </div>
+</div>
+</form>
