@@ -8,16 +8,12 @@
       </div>
     {% endif %}
     {% for todo in todos %}
-    <ul>
+    <ul hx-confirm="¿Estas seguro que deseas eliminar esta tarea?" hx-target="#todo-list">
         <li>
           {{todo.title}}
-          <span class="icon has-text-danger"
-            hx-delete="{% url 'demo:todo-delete' todo.pk %}"
-            hx-target="#todo-list"
-            hx-confirm="¿Estas seguro que deseas eliminar esta tarea?"
-          >
+          <span class="icon has-text-danger" hx-delete="{% url 'demo:todo-delete' todo.pk %}">
               <i class="fas fa-trash-alt"></i>
-        </span>
+          </span>
         </li>
     </ul>
     {% empty %}

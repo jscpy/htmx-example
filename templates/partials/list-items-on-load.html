@@ -1,0 +1,16 @@
+{% for profile in profiles %}
+<div class="column is-4">
+    {% include 'partials/item.html' with profile=profile %}
+</div>
+{% endfor %}
+{% if page_obj.has_next%}
+<div class="column is-4" id="replaceMe">
+    <button class="button is-primary is-fullwidth"
+    hx-get="{% url 'demo:profiles-to-load' %}?page={{page_obj.next_page_number}}"
+    hx-swap="outerHTML"
+    hx-target="#replaceMe"
+    >
+    Cargar más Agentes
+    </button>
+</div>
+{% endif %}

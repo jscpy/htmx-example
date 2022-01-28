@@ -6,6 +6,7 @@ app_name = 'demo'
 urlpatterns = [
     path('', views.home, name='home'),
     path('profiles/', views.ProfileListView.as_view(), name='profiles'),
+    path('profiles/list/', views.ProfilesOnLoadView.as_view(), name='profiles-to-load'),
     path('workers/', views.WorkerListView.as_view(), name='workers'),
 
     # HTMX

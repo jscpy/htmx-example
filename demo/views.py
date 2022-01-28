@@ -107,8 +107,19 @@ class ProfileListView(ListView):
     
     def get_template_names(self):
         if self.request.htmx:
-            return 'partials/list_items.html'
+            return 'partials/list-items.html'
         return 'profiles.html'
+
+
+class ProfilesOnLoadView(ListView):
+    model = Profile
+    context_object_name = 'profiles'
+    paginate_by = 10
+
+    def get_template_names(self):
+        if self.request.htmx:
+            return 'partials/list-items-on-load.html'
+        return 'profiles_on_load.html'
 
 
 class WorkerListView(View):

@@ -1,6 +1,8 @@
 <nav class="navbar is-spaced is-dark" role="navigation" aria-label="main navigation">
 <div class="navbar-brand">  
-    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample"
+    _="on click toggle .is-active on .navbar-burger and .navbar-menu"
+    >
     <span aria-hidden="true"></span>
     <span aria-hidden="true"></span>
     <span aria-hidden="true"></span>
@@ -15,6 +17,7 @@
         <div class="navbar-dropdown">
         <a class="navbar-item" href="{% url 'demo:workers' %}">Active Search & Pagination</a>
         <a class="navbar-item" href="{% url 'demo:profiles' %}">Infinite Scroll</a>
+        <a class="navbar-item" href="{% url 'demo:profiles-to-load' %}">Click To Load</a>
         </div>
     </div>
     </div>
