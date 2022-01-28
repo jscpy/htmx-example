@@ -1,0 +1,12 @@
+<form hx-post="{% url 'demo:todo-update' todo_id %}" hx-target="#todo-list">
+<div class="field has-addons">
+    <div class="control">
+        {{form.title}}
+    </div>
+    <p class="control">
+    <button class="button is-success" type="submit">
+        Actualizar
+    </button>
+    </p>
+</div>
+</form>

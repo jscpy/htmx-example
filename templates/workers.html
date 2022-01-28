@@ -1,0 +1,33 @@
+{% extends "layout/base.html" %}
+{% block body %}
+<section class="hero is-warning">
+    <div class="hero-body">
+        <p class="title is-spaced is-family-monospace">Sección Amarilla</p>
+        <p class="subtitle is-6 is-family-code">Active Search & Pagination</p>
+    </div>
+</section>
+<section class="section has-background-light">
+    <div class="container">
+        <form class="box">
+            <div class="field">
+                <div class="control is-expanded has-icons-left">
+                  <input class="input is-rounded" type="text" placeholder="Buscar..."
+                    name="q"
+                    hx-get="{% url 'demo:workers' %}"
+                    hx-target="#search"
+                    hx-trigger="keyup changed delay:500ms"
+                  >
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-search"></i>
+                  </span>
+                </div>
+              </div>
+        </form>
+    </div>
+</section>
+<section class="section">
+    <div class="container" id="search">
+        {% include "partials/active_search/table.html" %}
+    </div>
+</section>
+{% endblock body %}

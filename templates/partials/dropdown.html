@@ -1,0 +1,14 @@
+<div class="field">
+<label class="label">Modulos</label>
+<div class="control">
+    <div class="select is-fullwidth">
+    <select>
+        {% for module in modules  %}  
+        <option value="{{module.id}}">{{module.name}}</option>
+        {% empty %}
+        <option>----</option>
+        {% endfor %}
+    </select>
+    </div>
+</div>
+</div>

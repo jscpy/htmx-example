@@ -1,0 +1,45 @@
+<table class="table is-striped is-hoverable is-fullwidth">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Nombre</th>
+            <th>Empresa</th>
+            <th>Puesto</th>
+            <th>Telefono</th>
+            <th>Correo de Contacto</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for profile in page_obj  %}  
+        <tr>
+            <td>{{profile.id}}</td>
+            <td>{{profile.get_fullname}}</td>
+            <td>{{profile.company}}</td>
+            <td>{{profile.job}}</td>
+            <td>{{profile.phonenumber}}</td>
+            <td>{{profile.email}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<nav class="pagination is-centered" role="navigation" aria-label="pagination" hx-target="#search" hx-push-url="true">
+    {% if page_obj.has_previous %}
+    <a hx-get="?page={{page_obj.previous_page_number}}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}" href="?page={{page_obj.previous_page_number}}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}" class="pagination-previous is-disabled" title="This is the first page">Previous</a>
+    {% endif %}
+    {% if page_obj.has_next %}
+    <a hx-get="?page={{page_obj.next_page_number}}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}" href="?page={{page_obj.next_page_number}}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}" class="pagination-next">Next page</a>
+    {% endif %}
+    <ul class="pagination-list">
+    {% for number in page_obj.paginator.page_range %}
+    {% ifequal number page_obj.number %}
+    <li>
+        <a hx-get="?page={{number}}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}" href="?page={{number}}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}" class="pagination-link is-current" aria-label="Page 1" aria-current="page">{{number}}</a>
+    </li>
+    {% else %}
+    <li>
+        <a hx-get="?page={{number}}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}" href="?page={{number}}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}" class="pagination-link" aria-label="Page 1" aria-current="page">{{number}}</a>
+    </li>
+    {% endifequal %}
+    {% endfor %}
+</ul>
+</nav>

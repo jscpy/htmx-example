@@ -1,0 +1,26 @@
+<div class="content">
+    {% if form.errors %}
+    <div class="notification is-danger is-light">
+        <button class="delete" _="on click add .is-hidden to .notification" ></button>
+        {% for field in form %}
+        {{ field.label_tag }}{{ field.errors }}
+        {% endfor %}
+      </div>
+    {% endif %}
+    {% for todo in todos %}
+    <ul>
+        <li>
+          {{todo.title}}
+          <span class="icon has-text-danger"
+            hx-delete="{% url 'demo:todo-delete' todo.pk %}"
+            hx-target="#todo-list"
+            hx-confirm="¿Estas seguro que deseas eliminar esta tarea?"
+          >
+              <i class="fas fa-trash-alt"></i>
+        </span>
+        </li>
+    </ul>
+    {% empty %}
+    <p>No hay tareas por realizar</p>
+    {% endfor %}
+</div>

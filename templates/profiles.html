@@ -1,0 +1,16 @@
+{% extends "layout/base.html" %}
+{% block body %}
+<section class="hero is-light">
+    <div class="hero-body">
+        <p class="title is-spaced has-text-weight-normal is-family-monospace">Agenda de Vendedores</p>
+        <p class="subtitle is-6 is-family-code">Infinite scroll</p>
+    </div>
+</section>
+<section class="section">
+    <div class="container">
+        <div class="columns is-multiline">
+           {% include "partials/list_items.html" %}
+        </div>
+    </div>
+</section>
+{% endblock body %}

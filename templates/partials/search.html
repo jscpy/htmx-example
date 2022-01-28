@@ -1,0 +1,18 @@
+<table class="table is-striped is-hoverable is-fullwidth">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Empresa</th>
+            <th>Puesto</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for profile in profiles  %}  
+        <tr>
+            <td>{{profile.first_name}} {{profile.last_name}}</td>
+            <td>{{profile.company}}</td>
+            <td>{{profile.job}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
