@@ -1,0 +1,21 @@
+{% for profile in profiles %}
+{% if profile.id|stringformat:"i" in ids %}
+<tr class="{{tr_status}}">
+{% else %}
+<tr>
+{% endif %}
+    <td><input type='checkbox' name='ids' value='{{profile.id}}'></td>
+    <td>{{profile.get_fullname}}</td>
+    <td>{{profile.company}} </td>
+    {% if profile.status %}
+        <td>Activo</td>
+    {% else %}
+        <td>Inactivo</td>
+    {% endif %}
+    <td>
+    <button class="button is-danger is-small" hx-delete="{% url 'demo:profiles-delete' profile.id %}">
+        Delete
+    </button>
+    </td>
+</tr>
+{% endfor %}
