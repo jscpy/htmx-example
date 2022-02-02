@@ -23,4 +23,5 @@ urlpatterns = [
     path('todo/delete/<int:pk>', views.delete_todo, name='todo-delete'),
     path('search/', views.search_profile, name='search'),
     path('dropdown/', views.dropdown_modules, name='dropdown'),
+    path('periodic_refresh/', views.periodic_refresh, name='periodic-refresh'),
 ]

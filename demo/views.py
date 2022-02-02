@@ -1,3 +1,4 @@
+from random import randint
 from django.views.decorators.http import require_http_methods
 from django.views.generic import ListView, View
 from django.core.paginator import Paginator
@@ -9,14 +10,21 @@ from demo.models import Todo, Profile, Course, Module
 from demo.forms import TodoForm, ProfileForm
 
 def home(request):
-    data = {
+    data_random = {
+        'tweets': randint(1, 1000),
+        'following': randint(1, 1000),
+        'followers': randint(1, 1000),
+        'likes': randint(1, 1000),
+    }
+    context = {
         'todos': Todo.objects.all(),
         'profiles': Profile.objects.all()[:5],
-        'courses': Course.objects.all()
+        'courses': Course.objects.all(),
+        'data_random': data_random
     }
     
     return render(
-        template_name='index.html', request=request, context=data
+        template_name='index.html', request=request, context=context
     )
 
 @require_http_methods(['POST'])
@@ -191,3 +199,16 @@ def delete_profile(request, pk):
     profile.delete()
     context['profiles'] = Profile.objects.all()[:20]
     return render(request, template_name, context)
+
+
+def periodic_refresh(request):
+    context = {}
+    data_random = {
+        'tweets': randint(1, 500),
+        'following': randint(1, 500),
+        'followers': randint(1, 500),
+        'likes': randint(1, 500),
+    }
+    context['data_random'] = data_random
+    if request.htmx:
+        return render(request, 'partials/periodic_refresh.html', context)
