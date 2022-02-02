@@ -1,7 +1,7 @@
 from django.views.decorators.http import require_http_methods
 from django.views.generic import ListView, View
 from django.core.paginator import Paginator
-from django.http import HttpResponse, HttpResponseRedirect, Http404
+from django.http import HttpResponse
 from django.db.models import Q
 from django.shortcuts import render
 
@@ -162,4 +162,32 @@ def update_profile(request, id):
     if form.is_valid():
         form.save()
     context['profile'] = Profile.objects.get(id=id)
+    return render(request, template_name, context)
+
+@require_http_methods(['GET'])
+def profiles_bullk(request):
+    context = {}
+    template_name = 'profiles_bulk_update.html'
+    context['profiles'] = Profile.objects.all()[:20]
+    return render(request, template_name, context)
+
+@require_http_methods(['POST'])
+def profiles_bulk_update(request, status):
+    context = {}
+    data = {'activate': True, 'deactivate': False}
+    template_name = 'partials/table-bulk.html'
+    ids = request.POST.getlist('ids')
+    Profile.objects.filter(id__in=ids).update(status=data[status])
+    context['profiles'] = Profile.objects.all()[:20]
+    context['ids'] = ids
+    context['tr_status'] = status
+    return render(request, template_name, context)
+
+@require_http_methods(['DELETE'])
+def delete_profile(request, pk):
+    context = {}
+    template_name = 'partials/table-bulk.html'
+    profile = Profile.objects.get(pk=pk)
+    profile.delete()
+    context['profiles'] = Profile.objects.all()[:20]
     return render(request, template_name, context)
